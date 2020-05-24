@@ -33,7 +33,7 @@ export default class Bot {
                 await this.twitter.postTweet({ text, href, trend })
             }
         }
-    }
+    } 
 
     makeRelations = async (): Promise<void> => {
         console.log('\t-> Keep articles in connection with trendings topics')
