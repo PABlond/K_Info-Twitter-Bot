@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "dev": "nodemon dist",
+    "tsc": "tsc -w",
+    "prettier": "prettier --write \"./src/**/*.{js,ts}\""
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "jsdom": "^16.2.2",
+    "mongoose": "^5.9.15",
+    "nodemon": "^2.0.4",
+    "tsc": "^1.20150623.0",
+    "twitter": "^1.7.1",
+    "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.18",
+    "@types/jest": "^25.2.3",
+    "@types/jsdom": "^16.2.3",
+    "@types/mongoose": "^5.7.21",
+    "@types/twitter": "^1.7.0",
+    "jest": "^26.0.1",
+    "jest-extended": "^0.11.5",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.0.0"
+  }
+}
