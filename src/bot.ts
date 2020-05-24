@@ -6,12 +6,14 @@ import { IScrappedLinks, IRelations } from './interfaces'
 
 export default class Bot {
     twitter: any
+    article: any
     trendsName: string[]
     links: IScrappedLinks[]
     relations: IRelations[]
 
     constructor(getTwitterConfig: any) {
         this.twitter = new Twitter(getTwitterConfig)
+        this.article = new Article()
         this.trendsName = []
         this.links = []
         this.relations = []
@@ -24,6 +26,9 @@ export default class Bot {
             if (!(await TweetModel.findOne({ href }))) {
                 console.log('\t-> Tweet article')
                 console.log(relation)
+                const article = await ArticleModel.findOne({ href }) as any
+                article.target = true
+                await article.save()
                 await new TweetModel({ ...relation, at: Date.now() }).save()
                 await this.twitter.postTweet({ text, href, trend })
             }
@@ -35,7 +40,7 @@ export default class Bot {
         for await (const link of this.links) {
             const { text, href, source } = link
             if (!(await ArticleModel.findOne({ href })))
-                await new ArticleModel({ ...link, at: Date.now() }).save()
+                await new ArticleModel({ ...link, at: Date.now(), target: false }).save()
             this.trendsName.forEach((trend: string) =>
                 text.indexOf(trend.replace(/\b\#\w+/g, '')) !== -1
                     ? this.relations.push({ trend, text, href, source })
@@ -46,9 +51,8 @@ export default class Bot {
 
     scrapArticles = async (): Promise<void> => {
         console.log('\t-> Scrapping articles from Le Monde, 20Minutes ...')
-        const article = new Article()
-        await article.getLinks()
-        this.links = article.links
+        await this.article.getLinks()
+        this.links = this.article.links
     }
 
     run = async (): Promise<void> => {
@@ -56,6 +60,9 @@ export default class Bot {
         console.log('\t-> Get TT')
         this.trendsName = await this.twitter.getTrends()
         await this.scrapArticles()
+        if (this.article.error) {
+            return console.log(this.article.error)
+        }
         await this.makeRelations()
         await this.saveAndTweet()
         console.log('[ ] End of script')
