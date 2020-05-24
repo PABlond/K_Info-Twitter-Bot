@@ -11,6 +11,7 @@ export default class Article {
     medias: any
     headers: { 'User-Agent': string; 'Accept-Encoding': string; Accept: string }
     links: IScrappedLinks[]
+    error : string | undefined
 
     constructor() {
         this.medias = [_leMonde, _20minutes, _leParisien]
@@ -22,8 +23,9 @@ export default class Article {
                 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         }
         this.links = []
+        this.error = undefined
     } 
-    
+
     getHomePageData = async (url: string): Promise<any> => {
         const { headers } = this
         return await axios.get(url, { headers }).catch(() => ({ data: null }))
@@ -38,7 +40,7 @@ export default class Article {
                 )) {
                     this.links.push(article)
                 }
-            } else console.log(`failed for ${media.url}`)
+            } else this.error = `failed for ${media.url}`
         }
     }
 }
