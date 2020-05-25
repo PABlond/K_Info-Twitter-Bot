@@ -7,6 +7,4 @@ dbConnection(async () => {
   console.log('[ ] Connected to database')
   const bot = new Bot(twitterConfig)
   await bot.run()
-  const interval = 3 * 60 * 1000 // 3min()
-  setInterval(bot.run, interval)
 })
