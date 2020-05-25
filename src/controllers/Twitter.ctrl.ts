@@ -30,15 +30,13 @@ export default class Twitter {
         trend: string
         href: string
         text: string
-    }): Promise<void> => {
+    }): Promise<any> => {
         const params = { status: status + ' ' + attachment_url }
         try {
-            const data = await this.accountClient.post(
-                'statuses/update',
-                params
-            )
+            return await this.accountClient.post('statuses/update', params)
         } catch (err) {
             console.log(err)
+            return null
         }
     }
 }
