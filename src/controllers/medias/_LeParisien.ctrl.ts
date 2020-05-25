@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios'
 import cheerio from 'cheerio'
 import { IScrappedLinks } from '../../interfaces'
 
@@ -33,6 +32,15 @@ export default class _20Minutes {
         } catch (err) {
             return []
         }
+    }
+
+    getArticleData = (href: string, articleData: string): { image: string, desc: string } => {
+        let image = cheerio('.article-full .image', articleData).attr('src')
+        if (image.indexOf('leparisien.fr') === -1) {
+            image = "http://www.leparisien.fr" + image
+        }
+        const desc = cheerio('.article-full .image', articleData).attr('alt')
+        return { image, desc }
     }
 
     checkForbiddentPatterns = (data: IScrappedLinks[]): IScrappedLinks[] => {
