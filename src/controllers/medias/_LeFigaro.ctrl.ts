@@ -17,18 +17,20 @@ export default class _LeFigaro {
             const $ = cheerio.load(homepageData)
             const result: IScrappedLinks[] = []
             $('a', homepageData).each(async function (i: number, elem: any) {
-                const text = $(this)
-                    .text()
-                    .replace(/\s+/g, ' ')
-                    .trim()
+                const text = $(this).text().replace(/\s+/g, ' ').trim()
                 const href = $(this).attr('href')
                 if (href) result.push({ text, href, source: 'Le Figaro' })
             })
-            
+
             return this.checkForbiddentPatterns(result)
         } catch (err) {
             return []
         }
+    }
+
+    getArticleData = (href: string, articleData: string): { image: string, desc: string } => {
+        //TODO 
+        return { image: "", desc: "" }
     }
 
     checkForbiddentPatterns = (data: IScrappedLinks[]): IScrappedLinks[] => {
@@ -42,13 +44,13 @@ export default class _LeFigaro {
                     : null
             )
             .filter(Boolean)
-        // .map(({ text, href, source }: IScrappedLinks) => 
-        //         ({
-        //             text, source,
-        //             href: href.indexOf('huffingtonpost.fr') === -1
-        //                 ? 'https://www.huffingtonpost.fr' + href
-        //                 : href
-        //         })
-        // )
+            .map(({ text, href, source }: IScrappedLinks) => ({
+                text,
+                source,
+                href:
+                    href.indexOf('lefigaro.fr') === -1
+                        ? 'https://lefigaro.fr' + href
+                        : href,
+            }))
     }
 }
