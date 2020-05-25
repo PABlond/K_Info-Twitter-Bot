@@ -23,7 +23,6 @@ export default class Bot {
     saveAndTweet = async () => {
         for await (const relation of this.relations) {
             const { trend, text, href } = relation
-
             if (!(await TweetModel.findOne({ href }))) {
                 console.log('\t-> Tweet article')
                 console.log(relation)
