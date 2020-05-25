@@ -31,6 +31,13 @@ export default class LeMonde {
         }
     }
 
+    getArticleData = (href: string, articleData: string): { image: string, desc: string } => {
+        const originalLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Le_Monde.svg/317px-Le_Monde.svg.png"
+        const image = cheerio('.article__content img', articleData).attr('src') || originalLogo
+        const desc = cheerio('.article__desc', articleData).text() || ""
+        return { image, desc }
+    }
+
     checkForbiddentPatterns = (data: IScrappedLinks[]): IScrappedLinks[] => {
         return data
             .map(({ text, href, source }: IScrappedLinks) =>
