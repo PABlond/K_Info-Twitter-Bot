@@ -7,5 +7,8 @@ export default model(
         text: String,
         href: String,
         at: Date,
+        source: String,
+        image: String,
+        desc: String,
     })
 )
