@@ -2,7 +2,8 @@
   "scripts": {
     "start": "node build",
     "dev": "nodemon dist",
-    "tsc": "tsc -w",
+    "build:watch": "tsc --build -w",
+    "build": "tsc && cp -r dist build",
     "prettier": "prettier --write \"./src/**/*.{js,ts}\""
   },
   "dependencies": {
