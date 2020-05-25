@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "node build",
     "dev": "nodemon dist",
     "tsc": "tsc -w",
     "prettier": "prettier --write \"./src/**/*.{js,ts}\""
