@@ -1,12 +1,18 @@
-import _LeMonde from './LeMonde.ctrl'
-import _20Minutes from './20minutes.ctrl'
-import _LeParisien from './LeParisien.ctrl'
 import axios from 'axios'
 import { IScrappedLinks } from '../interfaces'
+
+import _LeMonde from './medias/_LeMonde.ctrl'
+import _20Minutes from './medias/_20minutes.ctrl'
+import _LeParisien from './medias/_LeParisien.ctrl'
+import _HuffingtonPost from './medias/_HuffingtonPost.ctrl'
+import _LeFigaro from './medias/_LeFigaro.ctrl'
 
 const _leMonde = new _LeMonde()
 const _20minutes = new _20Minutes()
 const _leParisien = new _LeParisien()
+const _huffingtonPost = new _HuffingtonPost()
+const _leFigaro = new _LeFigaro()
+
 export default class Article {
     medias: any
     headers: { 'User-Agent': string; 'Accept-Encoding': string; Accept: string }
@@ -14,7 +20,13 @@ export default class Article {
     error: string | undefined
 
     constructor() {
-        this.medias = [_leMonde, _20minutes, _leParisien]
+        this.medias = [
+            _leMonde, 
+            _20minutes, 
+            _leParisien,
+            _huffingtonPost,
+            _leFigaro
+        ]
         this.headers = {
             'User-Agent':
                 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
