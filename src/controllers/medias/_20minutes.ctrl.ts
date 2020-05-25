@@ -31,6 +31,12 @@ export default class _20Minutes {
         }
     }
 
+    getArticleData = (href: string, articleData: string): { image: string, desc: string } => {
+        const image = cheerio('#main-illustration', articleData).attr('src')
+        const desc = cheerio('#main-content .hat-summary', articleData).text()
+        return { image, desc }
+    }
+
     checkForbiddentPatterns = (data: IScrappedLinks[]): IScrappedLinks[] => {
         return data
             .map(({ text, href, source }: IScrappedLinks) =>
