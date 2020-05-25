@@ -11,7 +11,7 @@ export default class Article {
     medias: any
     headers: { 'User-Agent': string; 'Accept-Encoding': string; Accept: string }
     links: IScrappedLinks[]
-    error : string | undefined
+    error: string | undefined
 
     constructor() {
         this.medias = [_leMonde, _20minutes, _leParisien]
@@ -24,7 +24,7 @@ export default class Article {
         }
         this.links = []
         this.error = undefined
-    } 
+    }
 
     getHomePageData = async (url: string): Promise<any> => {
         const { headers } = this
