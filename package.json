@@ -2,6 +2,7 @@
   "scripts": {
     "start": "node build",
     "dev": "nodemon dist",
+    "script": "nodemon dist/script",
     "build:watch": "tsc --build -w",
     "build": "tsc && rm -r build/ && cp -r dist/ build",
     "prettier": "prettier --write \"./src/**/*.{js,ts}\""
