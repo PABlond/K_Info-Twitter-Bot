@@ -31,7 +31,7 @@ export default class Twitter {
         href: string
         text: string
     }): Promise<any> => {
-        const params = { status: status + ' ' + attachment_url }
+        const params = { status: `${status} ${attachment_url}` }
         try {
             return await this.accountClient.post('statuses/update', params)
         } catch (err) {
